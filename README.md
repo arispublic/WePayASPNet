@@ -17,12 +17,13 @@ Open Web.Config and add below values to the AppSettings section:
 
 Examples coverage
 ------------------------
-1. Create a checkout
+1. Create a checkout (including prefill info)
 2. Create Preapproval
 3. Process Preapproval
 4. Get Checkout status
 5. Get User Info - by accessToken
-6. Authorize a User
+6. Refund
+7. Authorize a User
 
 
 TODO:
