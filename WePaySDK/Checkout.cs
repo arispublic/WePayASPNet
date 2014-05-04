@@ -38,6 +38,47 @@ namespace WePaySDK
             }
             return response;
         }
+
+        public CheckoutRefundResponse Refund(CheckoutRefundRequest req)
+        {
+            CheckoutRefundResponse response;
+            try
+            {
+                response = new WePayClient().Invoke<CheckoutRefundRequest, CheckoutRefundResponse>(req, req.actionUrl, req.accessToken);
+            }
+            catch (WePayException ex)
+            {
+                response = new CheckoutRefundResponse { checkout_id = 0, Error = ex };
+            }
+            return response;
+        }
+
+    }
+
+    public class CheckoutRefundRequest
+    {
+        [JsonIgnore]
+        public readonly string actionUrl = @"checkout/refund";
+
+        [JsonIgnore]
+        public string accessToken { get; set; }
+        public int checkout_id { get; set; }
+        public string refund_reason { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Nullable<decimal> amount { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Nullable<decimal> app_fee { get; set; }
+        public string payer_email_message { get; set; }
+        public string payee_email_message { get; set; }
+    }
+
+    public class CheckoutRefundResponse
+    {
+        public long checkout_id { get; set; }
+        public string state { get; set; }
+
+        [JsonIgnore]
+        public WePayException Error { get; set; }
     }
 
     public class CheckoutCreateRequest
@@ -61,6 +102,7 @@ namespace WePaySDK
         public string payer_email_message { get; set; }
         public string payee_email_message { get; set; }
         public long preapproval_id { get; set; }
+        public Dictionary<string, string> prefill_info { get; set; }
     }
 
     public class CheckoutCreateResponse

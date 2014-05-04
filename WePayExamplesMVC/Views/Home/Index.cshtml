@@ -26,7 +26,15 @@
 </div>
 
 <div class="well">
-<h3>#5 Get User Info (by AccessToken)</h3>
+    <h3>#5 Refund</h3>
+    <form action="/Home/Refund" method="GET">
+        <input id="checkout_id" placeholder="enter checkout Id" type="text" name="checkout_id" value="" />
+        <input class="btn" id="submit" type="submit" value="submit" />
+    </form>
+</div>
+
+<div class="well">
+<h3>#6 Get User Info (by AccessToken)</h3>
     <form action="/Home/GetUser" method="GET">
       <input id="id" placeholder="enter access token" type="text" name="id" value="" />
       <input class="btn" id="submit" type="submit" value="submit" />
@@ -34,6 +42,6 @@
 </div>
 
 <h3 class="well">
-  #6 <a class="btn" href="https://stage.wepay.com/v2/oauth2/authorize?client_id=@WePaySDK.WePayConfig.clientId&redirect_uri=@ViewBag.redirect_uri&scope=@WePaySDK.WePayConfig.authScope">
+  #7 <a class="btn" href="https://stage.wepay.com/v2/oauth2/authorize?client_id=@WePaySDK.WePayConfig.clientId&redirect_uri=@ViewBag.redirect_uri&scope=@WePaySDK.WePayConfig.authScope">
   Authorize and Create Account <i class="icon-play"></i> </a> </h3>
 

@@ -52,6 +52,9 @@ namespace wepayASPNET.Controllers
 
         public ActionResult CheckoutCreate(decimal amt)
         {
+            Dictionary<string, string> prefill = new Dictionary<string, string>();
+            prefill.Add("email", "username@someemail.com");
+            prefill.Add("name", "FirstName LastName");
           
             var req = new CheckoutCreateRequest
             {
@@ -192,5 +195,25 @@ namespace wepayASPNET.Controllers
             ViewBag.Msg +="New Account#:"+ accResponse.account_id;
             return View("Status");
         }
+
+        public ActionResult Refund(int checkout_id)
+        {
+            var req = new CheckoutRefundRequest
+            {
+                accessToken = WePayConfig.accessToken,
+                checkout_id = checkout_id,
+                refund_reason = "Activity is cancelled",
+                amount = 2.5m
+            };
+
+            var resp = new Checkout().Refund(req);
+            if (resp.Error != null)
+            {
+                ViewBag.Error = resp.Error.error + " - " + resp.Error.error_description;
+                return View("Status");
+            }
+            return Redirect(GlobalVars.hostUrl + @"/Home/CheckoutStatus?checkout_id=" + resp.checkout_id);
+        }
+
     }
 }
